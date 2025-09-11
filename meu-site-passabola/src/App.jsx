@@ -5,7 +5,7 @@ import axios from 'axios';
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithCustomToken, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc, onSnapshot } from "firebase/firestore";
-
+import Twiter from './assets/twiter.png';
 import LuanaAle from './assets/LuanaAle.jpg';
 import PassaBola from './assets/logo atualizado 1.png';
 import Youtube from './assets/youtube.png';
@@ -41,14 +41,13 @@ const placeholderNews2 = Noticia2;
 const placeholderNews3 = Noticia3;
 const placeholderDonaDaBola = LuanaAle;
 const placeholderYT = Youtube;
-const placeholderX = "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023.svg";
+const placeholderX = Twiter;
 const placeholderTT = Tiktok;
 const placeholderInsta = Instagram;
 const placeholderPrime = Prime;
 const placeholderSportv = Sportv;
 const placeholderBg = PB;
 
-// Mapeamento dos nomes de times da API para os logos locais
 const timesLogos = {
     "America Mineiro": America,
     "Bahia": Bahia,
@@ -87,16 +86,16 @@ const Header = ({ onMenuClick, onPageSelect, onLogout }) => {
     return (
         <header className="sticky top-0 z-50 w-full bg-[#839766] text-white py-4 shadow-lg flex items-center justify-between px-6 lg:px-12">
             <button onClick={onMenuClick} className="flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-                <span className="hidden md:inline text-lg font-semibold">MENU</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                <span className="hidden md:inline text-lg font-semibold cursor-pointer">MENU</span>
             </button>
             <button onClick={() => onPageSelect('home')} className="flex items-center space-x-2 cursor-pointer">
                 <img src={placeholderLogo} alt="Passa a Bola Icon" className="w-10 h-10 rounded-full" />
-                <span className="text-xl lg:text-2xl font-bold">PASSA BOLA</span>
+              <span className="text-xl lg:text-2xl font-bold cursor-pointer">PASSA BOLA</span>
             </button>
             <button onClick={onLogout} className="flex items-center space-x-2">
-                <span className="hidden md:inline text-lg font-semibold">SAIR</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                <span className="hidden md:inline text-lg font-semibold cursor-pointer">SAIR</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
             </button>
         </header>
     );
@@ -185,19 +184,20 @@ const HomePage = () => (
         </div>
         <div className="w-full max-w-7xl px-4 mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                 <a href="https://www.youtube.com/@passabola" target="_blank" className="flex flex-col items-center">
+
                     <img src={placeholderYT} alt="YouTube" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://x.com/passaabola" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderX} alt="X" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.tiktok.com/@passabola?lang=pt-BR" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderTT} alt="TikTok" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
@@ -205,7 +205,7 @@ const HomePage = () => (
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                 <a href="https://www.instagram.com/passaabola?igsh=anZjZjVxM3h1YTAy" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderInsta} alt="Instagram" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@alexavier</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
@@ -245,7 +245,7 @@ const NewsPage = () => (
     </div>
 );
 
-// Componentes refatorados com a nova lógica
+
 const BrasileiraoPage = () => {
     const [view, setView] = useState('primeiraFase');
     const [tabelaData, setTabelaData] = useState([]);
@@ -257,37 +257,32 @@ const BrasileiraoPage = () => {
             setLoading(true);
             setError(null);
             try {
-                // ID da Liga Brasileira Feminina (WOF). Esse ID pode mudar.
-                const leagueCode = 'WOF';
+               
+                const mockData = [
+                    { posicao: 1, nome: "Corinthians", p: 35, j: 13, v: 11, e: 2, d: 0, gp: 38, gc: 9 },
+                    { posicao: 2, nome: "Ferroviária", p: 29, j: 13, v: 9, e: 2, d: 2, gp: 28, gc: 11 },
+                    { posicao: 3, nome: "Palmeiras", p: 28, j: 13, v: 8, e: 4, d: 1, gp: 27, gc: 10 },
+                    { posicao: 4, nome: "Cruzeiro", p: 25, j: 13, v: 7, e: 4, d: 2, gp: 22, gc: 12 },
+                    { posicao: 5, nome: "São Paulo", p: 24, j: 13, v: 7, e: 3, d: 3, gp: 23, gc: 13 },
+                    { posicao: 6, nome: "Flamengo", p: 22, j: 13, v: 6, e: 4, d: 3, gp: 25, gc: 16 },
+                    { posicao: 7, nome: "América Mineiro", p: 21, j: 13, v: 6, e: 3, d: 4, gp: 19, gc: 15 },
+                    { posicao: 8, nome: "Bragantino", p: 18, j: 13, v: 5, e: 3, d: 5, gp: 14, gc: 14 },
+                    { posicao: 9, nome: "Internacional", p: 16, j: 13, v: 4, e: 4, d: 5, gp: 12, gc: 18 },
+                    { posicao: 10, nome: "Bahia", p: 14, j: 13, v: 4, e: 2, d: 7, gp: 10, gc: 20 },
+                    { posicao: 11, nome: "Juventude", p: 12, j: 13, v: 3, e: 3, d: 7, gp: 9, gc: 21 },
+                    { posicao: 12, nome: "Real Brasília", p: 11, j: 13, v: 3, e: 2, d: 8, gp: 11, gc: 24 },
+                    { posicao: 13, nome: "Botafogo", p: 10, j: 13, v: 2, e: 4, d: 7, gp: 8, gc: 23 },
+                    { posicao: 14, nome: "Avaí Kindermann", p: 9, j: 13, v: 2, e: 3, d: 8, gp: 7, gc: 26 },
+                    { posicao: 15, nome: "Goiás", p: 8, j: 13, v: 2, e: 2, d: 9, gp: 6, gc: 28 },
+                    { posicao: 16, nome: "Ceará", p: 7, j: 13, v: 1, e: 4, d: 8, gp: 5, gc: 29 }
+                ];
 
-                const response = await axios.get(`https://api.football-data.org/v4/competitions/${leagueCode}/standings`, {
-                    headers: {
-                        'X-Auth-Token': import.meta.env.VITE_FOOTBALL_DATA_API_KEY,
-                    },
-                });
+                setTabelaData(mockData);
+                setLoading(false);
 
-                if (response.data.standings && response.data.standings.length > 0) {
-                    const standings = response.data.standings[0].table;
-                    const formattedData = standings.map(team => ({
-                        posicao: team.position,
-                        nome: team.team.name,
-                        p: team.points,
-                        j: team.playedGames,
-                        v: team.won,
-                        e: team.draw,
-                        d: team.lost,
-                        gp: team.goalsFor,
-                        gc: team.goalsAgainst,
-                        // A API Football-Data não oferece o histórico de últimos jogos de forma simples, então usamos um mock.
-                        ultimosJogos: ["green", "green", "red", "green", "red"],
-                    }));
-                    setTabelaData(formattedData);
-                } else {
-                    setTabelaData([]);
-                }
             } catch (err) {
                 console.error("Erro ao buscar dados da API Football-Data:", err);
-                setError("Não foi possível carregar a tabela. Verifique sua chave de API e o código da liga.");
+                setError(err.response?.data?.message || "Não foi possível carregar a tabela. Verifique sua chave de API ou o limite de uso.");
             } finally {
                 setLoading(false);
             }
@@ -296,13 +291,11 @@ const BrasileiraoPage = () => {
     }, []);
 
     const quartasDeFinalData = [
-        { time1: { nome: '8º colocado', logo: timesLogos["América-MG"] }, time2: { nome: '1º colocado', logo: timesLogos.Corinthians }, quartas: 1 },
+        { time1: { nome: '8º colocado', logo: timesLogos['America Mineiro'] }, time2: { nome: '1º colocado', logo: timesLogos.Corinthians }, quartas: 1 },
         { time1: { nome: '5º colocado', logo: timesLogos.Ferroviaria }, time2: { nome: '4º colocado', logo: timesLogos.Palmeiras }, quartas: 2 },
         { time1: { nome: '7º colocado', logo: timesLogos.Bahia }, time2: { nome: '2º colocado', logo: timesLogos["São Paulo"] }, quartas: 3 },
         { time1: { nome: '6º colocado', logo: timesLogos.Flamengo }, time2: { nome: '3º colocado', logo: timesLogos.Cruzeiro }, quartas: 4 },
     ];
-
-    // ... (restante do componente, mantido)
 
     return (
         <div className="w-full max-w-5xl px-4 py-8 mx-auto">
@@ -336,7 +329,6 @@ const BrasileiraoPage = () => {
                                 <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">D</th>
                                 <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GP</th>
                                 <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GC</th>
-                                <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Últ. Jogos</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -352,11 +344,6 @@ const BrasileiraoPage = () => {
                                     <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{time.d}</td>
                                     <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{time.gp}</td>
                                     <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{time.gc}</td>
-                                    <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {time.ultimosJogos.map((resultado, idx) => (
-                                            <span key={idx} className={`inline-block w-3 h-3 rounded-full mx-0.5 ${resultado === 'green' ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                                        ))}
-                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -385,6 +372,7 @@ const BrasileiraoPage = () => {
         </div>
     );
 };
+
 
 const CalendarioPage = () => (
     <div className="w-full max-w-5xl px-4 py-8 mx-auto">
@@ -487,95 +475,121 @@ const SobrePage = () => (
 );
 
 const PartidasAoVivoPage = () => {
-    const [partidas, setPartidas] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [partidas, setPartidas] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-    useEffect(() => {
-        const fetchLiveMatches = async () => {
-            setLoading(true);
-            setError(null);
+  useEffect(() => {
+    const fetchLiveMatches = async () => {
+      setLoading(true)
+      setError(null)
 
-            try {
-                // A URL base da API do football-data.org é https://api.football-data.org/v4/
-                // O endpoint para buscar partidas ao vivo é /v4/matches com o parâmetro status=LIVE
-                const response = await axios.get('https://api.football-data.org/v4/matches?status=LIVE', {
-                    headers: {
-                        'X-Auth-Token': import.meta.env.VITE_FOOTBALL_DATA_API_KEY,
-                    },
-                });
-
-                // A resposta da API do football-data.org retorna um array de partidas
-                // diretamente na propriedade `matches` da resposta.
-                const liveMatches = (response.data.matches || [])
-                    .filter(match => match.status === 'IN_PLAY' || match.status === 'PAUSED')
-                    .map(match => ({
-                        id: match.id,
-                        time1: match.homeTeam?.name || '—',
-                        placar1: match.score?.fullTime?.home ?? '-',
-                        time2: match.awayTeam?.name || '—',
-                        placar2: match.score?.fullTime?.away ?? '-',
-                        // Verificamos o status para exibir "LIVE" ou "Intervalo"
-                        tempo: match.status === 'IN_PLAY' ? 'LIVE' : 'Intervalo',
-                        status: match.status,
-                    }));
-
-                setPartidas(liveMatches);
-
-            } catch (err) {
-                console.error("Erro ao buscar partidas ao vivo:", err);
-                // A mensagem de erro da API pode ser mais útil para o usuário
-                setError(err.response?.data?.message || "Não foi possível carregar as partidas. Verifique sua chave de API ou o limite de uso.");
-            } finally {
-                setLoading(false);
+      try {
+        const { data } = await axios.get(
+          'https://free-api-live-football-data.p.rapidapi.com/football-current-live',
+          {
+            headers: {
+              'X-RapidAPI-Host': 'free-api-live-football-data.p.rapidapi.com',
+              'X-RapidAPI-Key': '5f964ca21emshd9bae6104462fe5p128bd3jsn3aaa94c5128c'
             }
-        };
+          }
+        )
 
-        // Chama a função de busca a cada 60 segundos
-        fetchLiveMatches();
-        const interval = setInterval(fetchLiveMatches, 60000);
+        // segurança: se response.data.response.live não existir, usa array vazio
+        const liveArray = data?.response?.live ?? []
 
-        // Limpa o intervalo quando o componente é desmontado
-        return () => clearInterval(interval);
-    }, []);
+        const liveMatches = liveArray.map(match => ({
+          id: match.id,
+          time1: match.homeTeam?.name || '—',
+          placar1: match.homeTeam?.score?.toString() || '-',
+          time2: match.awayTeam?.name || '—',
+          placar2: match.awayTeam?.score?.toString() || '-',
+          tempo: match.matchStatus || 'LIVE'
+        }))
 
-    return (
-        <div className="w-full max-w-5xl px-4 py-8 mx-auto">
-            <h1 className="text-3xl font-bold text-[#523E6C] mb-8">Partidas ao Vivo</h1>
-            <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-200">
-                {loading ? (
-                    <p className="text-lg text-gray-600 text-center">Sincronizando dados em tempo real...</p>
-                ) : error ? (
-                    <p className="text-lg text-red-500 text-center">{error}</p>
-                ) : partidas.length === 0 ? (
-                    <p className="text-lg text-gray-600 text-center">Nenhuma partida ao vivo no momento.</p>
-                ) : (
-                    partidas.map(partida => (
-                        <div key={partida.id} className="flex flex-col md:flex-row items-center justify-between my-4 py-4 border-b border-gray-300 last:border-b-0">
-                            <div className="flex items-center space-x-2">
-                                <img src={timesLogos[partida.time1]} alt={partida.time1} className="w-10 h-10 rounded-full" />
-                                <span className="text-xl font-medium text-gray-800">{partida.time1}</span>
-                            </div>
-                            <div className="flex items-center space-x-4 my-2 md:my-0">
-                                <span className="text-2xl font-bold text-[#523E6C]">{partida.placar1}</span>
-                                <span className="text-lg font-light text-gray-500">x</span>
-                                <span className="text-2xl font-bold text-[#523E6C]">{partida.placar2}</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <span className="text-xl font-medium text-gray-800">{partida.time2}</span>
-                                <img src={timesLogos[partida.time2]} alt={partida.time2} className="w-10 h-10 rounded-full" />
-                            </div>
-                            <div className="text-sm text-gray-600 md:ml-auto flex flex-col items-center mt-2 md:mt-0">
-                                <span>{partida.tempo}</span>
-                                <span>LIVE</span>
-                            </div>
-                        </div>
-                    ))
-                )}
+        setPartidas(liveMatches)
+      } catch (err) {
+        console.error('Erro ao buscar partidas ao vivo:', err)
+        setError(
+          err.response?.data?.message ||
+            'Não foi possível carregar as partidas. Verifique sua chave de API ou limite de uso.'
+        )
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchLiveMatches()
+    const interval = setInterval(fetchLiveMatches, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="w-full max-w-5xl px-4 py-8 mx-auto">
+      <h1 className="text-3xl font-bold text-[#523E6C] mb-8">
+        Partidas ao Vivo
+      </h1>
+      <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-200">
+        {loading ? (
+          <p className="text-lg text-gray-600 text-center">
+            Sincronizando dados em tempo real...
+          </p>
+        ) : error ? (
+          <p className="text-lg text-red-500 text-center">
+            {error}
+          </p>
+        ) : partidas.length === 0 ? (
+          <p className="text-lg text-gray-600 text-center">
+            Nenhuma partida ao vivo no momento.
+          </p>
+        ) : (
+          partidas.map(partida => (
+            <div
+              key={partida.id}
+              className="flex flex-col md:flex-row items-center justify-between my-4 py-4 border-b border-gray-300 last:border-b-0"
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={timesLogos[partida.time1]}
+                  alt={partida.time1}
+                  className="w-10 h-10 rounded-full"
+                />
+                <span className="text-xl font-medium text-gray-800">
+                  {partida.time1}
+                </span>
+              </div>
+              <div className="flex items-center space-x-4 my-2 md:my-0">
+                <span className="text-2xl font-bold text-[#523E6C]">
+                  {partida.placar1}
+                </span>
+                <span className="text-lg font-light text-gray-500">x</span>
+                <span className="text-2xl font-bold text-[#523E6C]">
+                  {partida.placar2}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-xl font-medium text-gray-800">
+                  {partida.time2}
+                </span>
+                <img
+                  src={timesLogos[partida.time2]}
+                  alt={partida.time2}
+                  className="w-10 h-10 rounded-full"
+                />
+              </div>
+              <div className="text-sm text-gray-600 md:ml-auto flex flex-col items-center mt-2 md:mt-0">
+                <span>{partida.tempo}</span>
+                <span>LIVE</span>
+              </div>
             </div>
-        </div>
-    );
-};
+          ))
+        )}
+      </div>
+    </div>
+  )
+}
+
+
 
 const LoginPage = ({ onLoginSuccess }) => {
     const [isLoginView, setIsLoginView] = useState(true);
