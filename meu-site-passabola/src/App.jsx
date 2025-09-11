@@ -10,6 +10,7 @@ import LuanaAle from './assets/LuanaAle.jpg';
 import PassaBola from './assets/logo atualizado 1.png';
 import Youtube from './assets/youtube.png';
 import Instagram from './assets/instagram.png';
+import Twiter from './assets/twiter.png';
 import Tiktok from './assets/tik-tok.png';
 import Prime from './assets/amazon-logo-amazon-icon-free-free-vector.jpg';
 import America from './assets/America 1.png';
@@ -35,13 +36,14 @@ import GE from './assets/FOTOS GE 1 1.jpg'
 import Transferencia from './assets/TRANSFERENCIA.jpg'
 import Futebol from './assets/futebol feminino 1.jpg'
 
+
 const placeholderLogo = PassaBola;
 const placeholderNews1 = Noticia;
 const placeholderNews2 = Noticia2;
 const placeholderNews3 = Noticia3;
 const placeholderDonaDaBola = LuanaAle;
 const placeholderYT = Youtube;
-const placeholderX = "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023.svg";
+const placeholderX = Twiter;
 const placeholderTT = Tiktok;
 const placeholderInsta = Instagram;
 const placeholderPrime = Prime;
@@ -185,19 +187,19 @@ const HomePage = () => (
         </div>
         <div className="w-full max-w-7xl px-4 mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.youtube.com/@passabola" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderYT} alt="YouTube" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://x.com/passaabola" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderX} alt="X" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.tiktok.com/@passabola?lang=pt-BR" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderTT} alt="TikTok" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
@@ -205,7 +207,7 @@ const HomePage = () => (
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.instagram.com/passaabola?igsh=anZjZjVxM3h1YTAy" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderInsta} alt="Instagram" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@alexavier</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
