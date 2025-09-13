@@ -475,54 +475,53 @@ const SobrePage = () => (
 );
 
 const PartidasAoVivoPage = () => {
-  const [partidas, setPartidas] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [partidas, setPartidas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchLiveMatches = async () => {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
       try {
         const { data } = await axios.get(
-          'https://free-api-live-football-data.p.rapidapi.com/football-current-live',
+          'https://v3.football.api-sports.io/fixtures?live=all',
           {
             headers: {
-              'X-RapidAPI-Host': 'free-api-live-football-data.p.rapidapi.com',
-              'X-RapidAPI-Key': '5f964ca21emshd9bae6104462fe5p128bd3jsn3aaa94c5128c'
+              'x-rapidapi-host': 'v3.football.api-sports.io',
+              'x-rapidapi-key': ''
             }
           }
-        )
+        );
 
-        // segurança: se response.data.response.live não existir, usa array vazio
-        const liveArray = data?.response?.live ?? []
+        const liveArray = data?.response ?? [];
 
         const liveMatches = liveArray.map(match => ({
-          id: match.id,
-          time1: match.homeTeam?.name || '—',
-          placar1: match.homeTeam?.score?.toString() || '-',
-          time2: match.awayTeam?.name || '—',
-          placar2: match.awayTeam?.score?.toString() || '-',
-          tempo: match.matchStatus || 'LIVE'
-        }))
+          id: match.fixture.id,
+          time1: match.teams.home.name || '—',
+          placar1: match.goals.home?.toString() || '-',
+          time2: match.teams.away.name || '—',
+          placar2: match.goals.away?.toString() || '-',
+          tempo: match.fixture.status.elapsed || 'LIVE'
+        }));
 
-        setPartidas(liveMatches)
+        setPartidas(liveMatches);
       } catch (err) {
-        console.error('Erro ao buscar partidas ao vivo:', err)
+        console.error('Erro ao buscar partidas ao vivo:', err);
         setError(
           err.response?.data?.message ||
             'Não foi possível carregar as partidas. Verifique sua chave de API ou limite de uso.'
-        )
+        );
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchLiveMatches()
-    const interval = setInterval(fetchLiveMatches, 60000)
-    return () => clearInterval(interval)
-  }, [])
+    fetchLiveMatches();
+    const interval = setInterval(fetchLiveMatches, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="w-full max-w-5xl px-4 py-8 mx-auto">
@@ -586,9 +585,8 @@ const PartidasAoVivoPage = () => {
         )}
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 
 const LoginPage = ({ onLoginSuccess }) => {
