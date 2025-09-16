@@ -81,7 +81,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Componentes da UI (inalterados)
+
 const Header = ({ onMenuClick, onPageSelect, onLogout }) => {
     return (
         <header className="sticky top-0 z-50 w-full bg-[#839766] text-white py-4 shadow-lg flex items-center justify-between px-6 lg:px-12">
@@ -301,15 +301,21 @@ const BrasileiraoPage = () => {
         <div className="w-full max-w-5xl px-4 py-8 mx-auto">
             <h1 className="text-3xl font-bold text-[#523E6C] mb-8">Brasileirão Série A</h1>
             <div className="flex items-center justify-center space-x-4 mb-8">
-                <button onClick={() => setView('quartasDeFinal')} className="text-gray-500 hover:text-[#523E6C] transition-colors duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
-                </button>
-                <span className="text-lg font-semibold text-gray-800 uppercase">
-                    {view === 'primeiraFase' ? 'PRIMEIRA FASE' : 'QUARTAS DE FINAL'}
-                </span>
                 <button onClick={() => setView('primeiraFase')} className="text-gray-500 hover:text-[#523E6C] transition-colors duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" /></svg>
-                </button>
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /> {/* seta esquerda */}
+    </svg>
+</button>
+
+<span className="text-lg font-semibold text-gray-800 uppercase">
+    {view === 'primeiraFase' ? 'PRIMEIRA FASE' : 'QUARTAS DE FINAL'}
+</span>
+
+<button onClick={() => setView('quartasDeFinal')} className="text-gray-500 hover:text-[#523E6C] transition-colors duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" /> {/* seta direita */}
+    </svg>
+</button>
             </div>
             {loading ? (
                 <div className="text-center text-lg text-gray-600">Carregando tabela...</div>
@@ -474,6 +480,7 @@ const SobrePage = () => (
     </div>
 );
 
+
 const PartidasAoVivoPage = () => {
   const [partidas, setPartidas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -486,32 +493,31 @@ const PartidasAoVivoPage = () => {
 
       try {
         const { data } = await axios.get(
-          'https://v3.football.api-sports.io/fixtures?live=all',
+          "https://v3.football.api-sports.io/fixtures?live=all",
           {
             headers: {
-              'x-rapidapi-host': 'v3.football.api-sports.io',
-              'x-rapidapi-key': ''
-            }
+              "x-apisports-key": "850b59b06aa60ec37f4cbbfbbfe06b51",
+            },
           }
         );
 
-        const liveArray = data?.response ?? [];
-
-        const liveMatches = liveArray.map(match => ({
+        const liveMatches = data?.response?.map((match) => ({
           id: match.fixture.id,
-          time1: match.teams.home.name || '—',
-          placar1: match.goals.home?.toString() || '-',
-          time2: match.teams.away.name || '—',
-          placar2: match.goals.away?.toString() || '-',
-          tempo: match.fixture.status.elapsed || 'LIVE'
+          time1: match.teams.home.name,
+          logo1: match.teams.home.logo,
+          placar1: match.goals.home ?? "-",
+          time2: match.teams.away.name,
+          logo2: match.teams.away.logo,
+          placar2: match.goals.away ?? "-",
+          tempo: match.fixture.status.elapsed || "LIVE",
         }));
 
-        setPartidas(liveMatches);
+        setPartidas(liveMatches || []);
       } catch (err) {
-        console.error('Erro ao buscar partidas ao vivo:', err);
+        console.error("Erro ao buscar partidas ao vivo:", err);
         setError(
           err.response?.data?.message ||
-            'Não foi possível carregar as partidas. Verifique sua chave de API ou limite de uso.'
+            "Não foi possível carregar as partidas. Verifique sua chave de API ou limite de uso."
         );
       } finally {
         setLoading(false);
@@ -519,7 +525,7 @@ const PartidasAoVivoPage = () => {
     };
 
     fetchLiveMatches();
-    const interval = setInterval(fetchLiveMatches, 60000);
+    const interval = setInterval(fetchLiveMatches, 60000); // atualiza a cada 1 min
     return () => clearInterval(interval);
   }, []);
 
@@ -534,50 +540,58 @@ const PartidasAoVivoPage = () => {
             Sincronizando dados em tempo real...
           </p>
         ) : error ? (
-          <p className="text-lg text-red-500 text-center">
-            {error}
-          </p>
+          <p className="text-lg text-red-500 text-center">{error}</p>
         ) : partidas.length === 0 ? (
           <p className="text-lg text-gray-600 text-center">
             Nenhuma partida ao vivo no momento.
           </p>
         ) : (
-          partidas.map(partida => (
+          partidas.map((partida) => (
             <div
               key={partida.id}
               className="flex flex-col md:flex-row items-center justify-between my-4 py-4 border-b border-gray-300 last:border-b-0"
             >
-              <div className="flex items-center space-x-2">
-                <img
-                  src={timesLogos[partida.time1]}
-                  alt={partida.time1}
-                  className="w-10 h-10 rounded-full"
-                />
-                <span className="text-xl font-medium text-gray-800">
-                  {partida.time1}
-                </span>
+              {/* Linha de jogo */}
+              <div className="flex items-center justify-between w-full">
+                {/* Time da casa */}
+                <div className="flex items-center space-x-2 w-1/3">
+                  <img
+                    src={partida.logo1}
+                    alt={partida.time1}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <span className="text-xl font-medium text-gray-800 truncate">
+                    {partida.time1}
+                  </span>
+                </div>
+
+                {/* Placar */}
+                <div className="flex items-center space-x-2 w-1/3 justify-center">
+                  <span className="text-2xl font-bold text-[#523E6C]">
+                    {partida.placar1}
+                  </span>
+                  <span className="text-lg font-light text-gray-500">x</span>
+                  <span className="text-2xl font-bold text-[#523E6C]">
+                    {partida.placar2}
+                  </span>
+                </div>
+
+            
+                <div className="flex items-center space-x-2 w-1/3 justify-end">
+                  <span className="text-xl font-medium text-gray-800 truncate">
+                    {partida.time2}
+                  </span>
+                  <img
+                    src={partida.logo2}
+                    alt={partida.time2}
+                    className="w-10 h-10 rounded-full"
+                  />
+                </div>
               </div>
-              <div className="flex items-center space-x-4 my-2 md:my-0">
-                <span className="text-2xl font-bold text-[#523E6C]">
-                  {partida.placar1}
-                </span>
-                <span className="text-lg font-light text-gray-500">x</span>
-                <span className="text-2xl font-bold text-[#523E6C]">
-                  {partida.placar2}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xl font-medium text-gray-800">
-                  {partida.time2}
-                </span>
-                <img
-                  src={timesLogos[partida.time2]}
-                  alt={partida.time2}
-                  className="w-10 h-10 rounded-full"
-                />
-              </div>
-              <div className="text-sm text-gray-600 md:ml-auto flex flex-col items-center mt-2 md:mt-0">
-                <span>{partida.tempo}</span>
+
+              {/* Tempo do jogo */}
+              <div className="text-sm text-gray-600 flex flex-col items-center mt-2 md:mt-0">
+                <span>{partida.tempo}'</span>
                 <span>LIVE</span>
               </div>
             </div>
@@ -629,7 +643,6 @@ const LoginPage = ({ onLoginSuccess }) => {
             const user = userCredential.user;
             const userId = user.uid;
 
-            // Insere o perfil do usuário no banco de dados Firestore
             const profileRef = doc(db, `artifacts/${appId}/users/${userId}/profiles`, 'userProfile');
             await setDoc(profileRef, {
                 id: userId,
@@ -728,7 +741,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     );
 };
 
-// Componente principal App
+
 const App = () => {
     const [currentPage, setCurrentPage] = useState('login');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -741,7 +754,7 @@ const App = () => {
                 setCurrentPage('home');
                 console.log("Usuário autenticado:", user.uid);
 
-                // Assinar o perfil do usuário para atualizações em tempo real
+          
                 const profileRef = doc(db, `artifacts/${appId}/users/${user.uid}/profiles`, 'userProfile');
                 const unsubProfile = onSnapshot(profileRef, (doc) => {
                     if (doc.exists()) {
@@ -751,7 +764,6 @@ const App = () => {
                     console.error("Erro ao ouvir o perfil do usuário:", error);
                 });
 
-                // Retornar a função de cancelamento da inscrição para limpeza
                 return () => unsubProfile();
             } else {
                 setUserId(null);
@@ -760,7 +772,6 @@ const App = () => {
             }
         });
 
-        // Tentar autenticar com o token customizado se existir (usando globalThis para evitar erros em build/linters)
         const initialAuthToken = (typeof globalThis !== 'undefined' && typeof globalThis.__initial_auth_token !== 'undefined') ? globalThis.__initial_auth_token : null;
         if (initialAuthToken && !userId) {
             signInWithCustomToken(auth, initialAuthToken)

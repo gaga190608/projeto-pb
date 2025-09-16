@@ -10,9 +10,9 @@ Autenticação: Gerencia o cadastro e o login de usuários através de e-mail e 
 
 Firestore: Utilizado como banco de dados NoSQL para armazenar perfis de usuário, garantindo que os dados sejam persistentes e possam ser acessados de forma segura.
 
-2. RapidAPI
+2. APIFootball
 Endpoint
-https://free-api-live-football-data.p.rapidapi.com/football-current-live
+https://v3.football.api-sports.io
 
 Método
 GET
@@ -23,9 +23,9 @@ Este endpoint é usado para buscar partidas de futebol que estão ocorrendo em t
 Parâmetros
 A autenticação é feita através de cabeçalhos da requisição.
 
-x-rapidapi-host: string - O host da API.
+x-apifootball-host: string - O host da API.
 
-x-rapidapi-key: string - Chave de autenticação da API.
+x-apifootball-key: string - Chave de autenticação da API.
 
 Resposta
 A resposta da API retorna um objeto com uma lista de jogos ao vivo, incluindo o nome dos times e seus respectivos placares.

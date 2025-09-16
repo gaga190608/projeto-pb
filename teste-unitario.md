@@ -35,12 +35,12 @@ O que testar: Assegurar que o aplicativo consegue buscar e carregar os dados do 
 
 O que esperar: Os dados do perfil devem ser exibidos corretamente na interface do usuário (UI), como por exemplo, na página "Sobre".
 
-3. Testes de Requisições da API (RapidAPI)
+3. Testes de Requisições da API (APIFootball)
 Estes testes garantem que o aplicativo se comunique de forma eficaz com a API externa para obter dados sobre os jogos.
 
 Cenário: Busca de partidas ao vivo bem-sucedida
 
-O que testar: A chamada para a RapidAPI deve retornar os dados de jogos sem erros.
+O que testar: A chamada para a APIFootball deve retornar os dados de jogos sem erros.
 
 O que esperar: O aplicativo deve processar a resposta da API e atualizar a página "Partidas ao Vivo" com as informações dos jogos. O estado de carregamento deve ser desativado.
 
