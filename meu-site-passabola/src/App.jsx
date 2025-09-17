@@ -449,19 +449,19 @@ const SobrePage = () => (
         </div>
         <div className="w-full max-w-7xl px-4 mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.youtube.com/@passabola" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderYT} alt="YouTube" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://x.com/passaabola" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderX} alt="X" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.tiktok.com/@passabola?lang=pt-BR" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderTT} alt="TikTok" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@passabola</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
@@ -469,7 +469,7 @@ const SobrePage = () => (
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-md">
-                <a href="#" className="flex flex-col items-center">
+                <a href="https://www.instagram.com/passaabola/" target="_blank" className="flex flex-col items-center">
                     <img src={placeholderInsta} alt="Instagram" className="h-12 w-12" />
                     <span className="mt-2 text-sm text-gray-800">@alexavier</span>
                     <span className="text-sm text-gray-600">@luanamaluf</span>
