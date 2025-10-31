@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import NewsPage from './pages/NewsPage.jsx';
 import PartidasAoVivoPage from './pages/PartidasAoVIvoPAge.jsx';
 import SobrePage from './pages/SobrePage.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 
 //firebase
 import { signInWithCustomToken, signOut, onAuthStateChanged } from "firebase/auth";
@@ -87,6 +88,8 @@ const App = () => {
                 return <PartidasAoVivoPage />;
             case 'sobre':
                 return <SobrePage />;
+            case 'admin':
+                return <AdminPage />;
             default:
                 return <HomePage />;
         }

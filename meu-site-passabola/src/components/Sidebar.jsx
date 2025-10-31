@@ -20,6 +20,7 @@ const Sidebar = ({ isOpen, onClose, onPageSelect, currentPage }) => {
         { name: 'calendario', label: 'CALENDÁRIO' },
         { name: 'partidas-ao-vivo', label: 'PARTIDAS AO VIVO' },
         { name: 'sobre', label: 'SOBRE' },
+        { name: 'admin', label: 'ADMIN DASHBOARD' },
     ];
     return (
         <div
