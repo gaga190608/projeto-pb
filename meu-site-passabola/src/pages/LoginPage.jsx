@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
-
-import { auth, db, appId } from '../services/FirebaseConfig.js';
-
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-
-import { doc, setDoc } from "firebase/firestore";
-
+import { authService } from '../services/authService';
 import { placeholderBg } from '../constants/assets.js';
 
 const LoginPage = ({ onLoginSuccess }) => {
@@ -27,12 +21,13 @@ const LoginPage = ({ onLoginSuccess }) => {
         setMessage('');
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            await authService.login(email, password); 
             showMessage("Login realizado com sucesso! Redirecionando...", 'success');
             onLoginSuccess();
         } catch (error) {
             console.error("Erro no login:", error);
-            showMessage(`Erro no login: ${error.message}`);
+            const errorMessage = error.message.includes('auth/') ? error.message : `Erro desconhecido: ${error.message}`;
+            showMessage(`Erro no login: ${errorMessage}`);
         } finally {
             setLoading(false);
         }
@@ -44,21 +39,13 @@ const LoginPage = ({ onLoginSuccess }) => {
         setMessage('');
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            const userId = user.uid;
-
-            const profileRef = doc(db, `artifacts/${appId}/users/${userId}/profiles`, 'userProfile');
-            await setDoc(profileRef, {
-                id: userId,
-                email: user.email,
-                createdAt: new Date().toISOString()
-            });
-
+            await authService.signup(email, password); 
+            
             showMessage("Cadastro realizado com sucesso! Você já pode entrar.", 'success');
         } catch (error) {
             console.error("Erro no cadastro:", error);
-            showMessage(`Erro no cadastro: ${error.message}`);
+            const errorMessage = error.message.includes('auth/') ? error.message : `Erro desconhecido: ${error.message}`;
+            showMessage(`Erro no cadastro: ${errorMessage}`);
         } finally {
             setLoading(false);
         }
