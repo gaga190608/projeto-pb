@@ -22,4 +22,15 @@ export default defineConfig({
     globals: true,
     setupFiles: [setupFilePath],
   },
+
+  // ⬇️ ADICIONE ISSO AQUI ⬇️
+  server: {
+    proxy: {
+      "/py": {
+        target: "http://localhost:5000", // onde o app.py está rodando
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/py/, ""), // remove /py antes de mandar p/ Python
+      },
+    },
+  },
 });
