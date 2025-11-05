@@ -73,7 +73,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766]"
+                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766] text-black"
                             />
                             <input
                                 type="password"
@@ -81,7 +81,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766]"
+                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766] text-black"
                             />
                             <button
                                 type="submit"
@@ -105,7 +105,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766]"
+                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766] text-black"
                             />
                             <input
                                 type="password"
@@ -113,7 +113,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766]"
+                                className="w-full p-3 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#839766] text-black"
                             />
                             <button
                                 type="submit"
