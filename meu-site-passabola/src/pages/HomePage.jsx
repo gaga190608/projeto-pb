@@ -44,7 +44,7 @@ const HomePage = () => {
       </div>
 
       {/* Barra de Ações */}
-      <div className="w-full max-w-7xl px-4 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div className="w-full max-w-7xl px-4 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-black">
         <Dropdown
           label="Filtrar"
           items={[
