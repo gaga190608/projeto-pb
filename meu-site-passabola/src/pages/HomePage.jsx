@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     placeholderLogo, 
     Futebol_Asset, 
@@ -12,9 +12,27 @@ import {
 } from '../constants/assets.js';
 
 import { ModalForm, Dropdown } from '../components/ui/InteractiveComponents.jsx';
+import { EventFormModal, EventGrid } from '../components/ui/EventComponents.jsx';
 
 const HomePage = () => {
+    // contato
     const [openModal, setOpenModal] = useState(false);
+
+    // eventos
+    const [openEventModal, setOpenEventModal] = useState(false);
+    const [editingEvent, setEditingEvent] = useState(null);
+    const [events, setEvents] = useState([]);
+
+    // carregar e salvar eventos (persistência simples)
+    useEffect(() => {
+      const raw = localStorage.getItem('events.v1');
+      if (raw) {
+        try { setEvents(JSON.parse(raw)); } catch {}
+      }
+    }, []);
+    useEffect(() => {
+      localStorage.setItem('events.v1', JSON.stringify(events));
+    }, [events]);
 
     return (
         <div className="flex flex-col items-center">
@@ -38,12 +56,22 @@ const HomePage = () => {
                     onSelect={(opt) => console.log('Filtrando por:', opt)}
                 />
 
-                <button
-                    onClick={() => setOpenModal(true)}
-                    className="px-4 py-2 rounded-lg bg-[#523E6C] text-white shadow-sm hover:shadow-md hover:opacity-95 transition"
-                >
-                    Fale com a gente
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                      onClick={() => setOpenModal(true)}
+                      className="px-4 py-2 rounded-lg bg-[#523E6C] text-white shadow-sm hover:shadow-md hover:opacity-95 transition"
+                  >
+                      Fale com a gente
+                  </button>
+
+                  {/* Criar evento */}
+                  <button
+                    onClick={() => { setEditingEvent(null); setOpenEventModal(true); }}
+                    className="px-4 py-2 rounded-lg bg-white text-[#523E6C] border border-[#523E6C]/30 shadow-sm hover:shadow-md transition"
+                  >
+                    Criar evento
+                  </button>
+                </div>
             </div>
 
             {/* principal grid - cards */}
@@ -84,6 +112,27 @@ const HomePage = () => {
                 </div>
             </div>
 
+            {/* Próximos eventos */}
+            <div className="w-full max-w-7xl px-4 mt-10">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-2xl font-extrabold text-[#523E6C]">Próximos eventos</h3>
+                {events.length > 0 && (
+                  <button
+                    onClick={() => { setEditingEvent(null); setOpenEventModal(true); }}
+                    className="px-3 py-1.5 rounded-md border border-gray-200 text-sm hover:bg-gray-50"
+                  >
+                    Novo evento
+                  </button>
+                )}
+              </div>
+
+              <EventGrid
+                events={[...events].sort((a,b) => new Date(a.when) - new Date(b.when))}
+                onEdit={(ev) => { setEditingEvent(ev); setOpenEventModal(true); }}
+                onDelete={(ev) => setEvents(list => list.filter(x => x.id !== ev.id))}
+              />
+            </div>
+
             {/* redes sociais */}
             <div className="w-full max-w-7xl px-4 mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="flex flex-col items-center justify-center p-4 bg-white/50 rounded-xl text-center shadow-sm transform transition-transform duration-250 ease-out hover:-translate-y-2 hover:shadow-lg hover:scale-[1.01] hover:z-10 will-change-transform">
@@ -119,13 +168,24 @@ const HomePage = () => {
                 </div>
             </div>
 
-            {/* MODAL */}
+            {/* MODAIS */}
             <ModalForm
                 open={openModal}
                 onClose={() => setOpenModal(false)}
                 onSubmit={(data) => console.log('Form enviado:', data)}
             />
 
+            <EventFormModal
+                open={openEventModal}
+                onClose={() => setOpenEventModal(false)}
+                initial={editingEvent}
+                onSave={(ev) => {
+                  setEvents(list => {
+                    const exists = list.some(x => x.id === ev.id);
+                    return exists ? list.map(x => x.id === ev.id ? ev : x) : [...list, ev];
+                  });
+                }}
+            />
         </div>
     );
 };
