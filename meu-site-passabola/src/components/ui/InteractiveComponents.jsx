@@ -66,23 +66,31 @@ export function ModalForm({ open, onClose, onSubmit }) {
 
       <div
         ref={overlayRef}
+        role="dialog"
+        aria-modal="true"
         className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl p-8 transition"
       >
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+          aria-label="Fechar modal"
+        >
           ✕
         </button>
 
         <h3 className="text-2xl font-bold text-gray-800 mb-4">Fale com a gente</h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           <input
             ref={initialFocusRef}
             type="text"
             placeholder="Nome"
             value={values.name}
             onChange={(e) => setValues({ ...values, name: e.target.value })}
-            className={`w-full rounded-lg border px-3 py-2 ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
+            autoComplete="off"
+            className={`w-full rounded-lg border px-3 py-2 shadow-sm bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${
+              errors.name ? 'border-red-400' : 'border-gray-200'
+            }`}
           />
           {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
 
@@ -91,7 +99,10 @@ export function ModalForm({ open, onClose, onSubmit }) {
             placeholder="Email"
             value={values.email}
             onChange={(e) => setValues({ ...values, email: e.target.value })}
-            className={`w-full rounded-lg border px-3 py-2 ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
+            autoComplete="off"
+            className={`w-full rounded-lg border px-3 py-2 shadow-sm bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${
+              errors.email ? 'border-red-400' : 'border-gray-200'
+            }`}
           />
           {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
 
@@ -100,15 +111,17 @@ export function ModalForm({ open, onClose, onSubmit }) {
             placeholder="Mensagem"
             value={values.message}
             onChange={(e) => setValues({ ...values, message: e.target.value })}
-            className={`w-full rounded-lg border px-3 py-2 ${errors.message ? 'border-red-400' : 'border-gray-200'}`}
+            className={`w-full rounded-lg border px-3 py-2 shadow-sm bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${
+              errors.message ? 'border-red-400' : 'border-gray-200'
+            }`}
           />
           {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
 
           <div className="flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-100 rounded-lg">
+            <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
               Cancelar
             </button>
-            <button type="submit" className="px-4 py-2 bg-[#523E6C] text-white rounded-lg">
+            <button type="submit" className="px-4 py-2 bg-[#523E6C] text-white rounded-lg hover:opacity-95">
               Enviar
             </button>
           </div>
@@ -129,6 +142,8 @@ export function Dropdown({ label = 'Opções', items = [], onSelect }) {
       <button
         onClick={() => setOpen(!open)}
         className="px-4 py-2 border rounded-md bg-white hover:shadow-md"
+        aria-haspopup="menu"
+        aria-expanded={open}
       >
         {label}
       </button>
@@ -140,6 +155,8 @@ export function Dropdown({ label = 'Opções', items = [], onSelect }) {
               key={i}
               onClick={() => (onSelect?.(item), setOpen(false))}
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+              role="menuitem"
+              tabIndex={-1}
             >
               {item.label}
             </div>
