@@ -8,21 +8,18 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Caminho do setup do Vitest
 const setupFilePath = path.join(__dirname, 'src/test-config/setupTests.js');
 
 export default defineConfig({
-    plugins: [react()],
-    
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
-        },
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
-    
-    test: {
-        environment: 'jsdom',
-        globals: true,
-        setupFiles: [setupFilePath],   // ✅ Ativando seu setup do Vitest
-    },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: [setupFilePath],
+  },
 });
