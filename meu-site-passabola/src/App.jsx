@@ -11,7 +11,7 @@ import CalendarioPage from './pages/CalendarioPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NewsPage from './pages/NewsPage.jsx';
-import PartidasAoVivoPage from './pages/PartidasAoVIvoPAge.jsx';
+import PartidasAoVivoPage from './pages/PartidasAoVivoPage.jsx';
 import SobrePage from './pages/SobrePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 
