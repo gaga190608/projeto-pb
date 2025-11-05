@@ -69,7 +69,7 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
             <input
               value={values.title}
               onChange={(e) => setValues(v => ({ ...v, title: e.target.value }))}
-              className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${errors.title ? 'border-red-400' : 'border-gray-200'}`}
+              className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black ${errors.title ? 'border-red-400' : 'border-gray-200'}`}
               placeholder="Workshop de React, Meetup de WebDev…"
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
@@ -82,7 +82,7 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
                 type="datetime-local"
                 value={values.when}
                 onChange={(e) => setValues(v => ({ ...v, when: e.target.value }))}
-                className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${errors.when ? 'border-red-400' : 'border-gray-200'}`}
+                className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black ${errors.when ? 'border-red-400' : 'border-gray-200'}`}
               />
               {errors.when && <p className="text-xs text-red-500 mt-1">{errors.when}</p>}
             </div>
@@ -91,7 +91,7 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
               <input
                 value={values.location}
                 onChange={(e) => setValues(v => ({ ...v, location: e.target.value }))}
-                className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] ${errors.location ? 'border-red-400' : 'border-gray-200'}`}
+                className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black ${errors.location ? 'border-red-400' : 'border-gray-200'}`}
                 placeholder="Online / Av. Paulista, 100…"
               />
               {errors.location && <p className="text-xs text-red-500 mt-1">{errors.location}</p>}
@@ -104,7 +104,7 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
               rows={4}
               value={values.description}
               onChange={(e) => setValues(v => ({ ...v, description: e.target.value }))}
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C]"
+              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black"
               placeholder="O que vamos ver? Pré-requisitos? Palestrantes?"
             />
           </div>
@@ -114,13 +114,13 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
             <input
               value={values.link}
               onChange={(e) => setValues(v => ({ ...v, link: e.target.value }))}
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C]"
+              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black"
               placeholder="https://meetup.com/seu-evento"
             />
           </div>
 
           <div className="flex justify-end gap-3 pt-2">
-            <button type="button" onClick={onClose} className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200">Cancelar</button>
+            <button type="button" onClick={onClose} className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-black">Cancelar</button>
             <button type="submit" className="px-4 py-2 rounded-lg bg-[#523E6C] text-white hover:opacity-95">Salvar</button>
           </div>
         </form>

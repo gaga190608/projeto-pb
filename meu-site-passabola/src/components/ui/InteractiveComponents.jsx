@@ -118,7 +118,7 @@ export function ModalForm({ open, onClose, onSubmit }) {
           {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
 
           <div className="flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
+            <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-black">
               Cancelar
             </button>
             <button type="submit" className="px-4 py-2 bg-[#523E6C] text-white rounded-lg hover:opacity-95">
