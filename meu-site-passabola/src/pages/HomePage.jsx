@@ -43,7 +43,11 @@ const HomePage = () => {
         <h1 className="text-4xl lg:text-5xl font-extrabold text-[#523E6C]">BEBÊ</h1>
       </div>
 
+<<<<<<< HEAD
       
+=======
+      {/* Barra de Ações */}
+>>>>>>> 284b978741303f02f559928ef1bae8431636bfc1
       <div className="w-full max-w-7xl px-4 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-black">
         <Dropdown
           label="Filtrar"
