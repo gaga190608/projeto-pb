@@ -43,8 +43,8 @@ const HomePage = () => {
         <h1 className="text-4xl lg:text-5xl font-extrabold text-[#523E6C]">BEBÊ</h1>
       </div>
 
-      {/* Barra de Ações */}
-      <div className="w-full max-w-7xl px-4 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      
+      <div className="w-full max-w-7xl px-4 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-black">
         <Dropdown
           label="Filtrar"
           items={[
@@ -73,7 +73,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* principal grid - cards */}
+    
       <div className="w-full max-w-7xl px-4 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="relative w-full h-96 md:h-[48rem] rounded-2xl overflow-hidden shadow-md transform transition-transform duration-300 ease-out hover:-translate-y-3 hover:scale-[1.01] hover:shadow-2xl hover:z-10 will-change-transform">
           <img src={Futebol_Asset} alt="Seleção brasileira" className="w-full h-full object-cover" />
@@ -101,7 +101,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* bloco roxo */}
+   
       <div className="w-full max-w-7xl px-4 mt-8 bg-[#523E6C] rounded-3xl p-6 md:p-12 flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12">
         <div className="w-full md:w-1/2 lg:w-1/2 flex flex-col items-center">
           <img src={placeholderDonaDaBola} alt="As Donas da Bola" className="w-full h-auto object-cover rounded-3xl shadow-md transform transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-[1.01] hover:shadow-2xl hover:z-10 will-change-transform" />
@@ -111,7 +111,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Próximos eventos */}
+     
       <div className="w-full max-w-7xl px-4 mt-10">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-2xl font-extrabold text-[#523E6C]">Próximos eventos</h3>
@@ -166,7 +166,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* MODAIS */}
+     
       <ModalForm
         open={openModal}
         onClose={() => setOpenModal(false)}

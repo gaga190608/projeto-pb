@@ -1,93 +1,117 @@
+// src/hooks/useFiwareData.js
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// 🚨 IP e PORTA do STH COMET (Serviço de Histórico)
-const FIWARE_STH_BASE = "http://20.150.210.54:8666/STH/v1/contextEntities";
 
-// Configurações de Polling e Entidade
-const ENTITY_TYPE = 'Atleta';
-const ENTITY_ID = 'Atleta:001';
-const POLLING_INTERVAL_MS = 5000; // Atualiza a cada 5 segundos
+const FIWARE_IP = "20.150.218.100";
+const ENTITY_ID = 'urn:ngsi-ld:HeartSensor:pulse001'; 
+const ENTITY_TYPE = 'HeartSensor'; 
+const ATTRIBUTE_NAME = 'heartRate';
 
-// Headers de Serviço Fiware (STH Comet exige)
-const STH_HEADERS = {
-    'Fiware-Service': 'passabola', // Este header é necessário para o STH Comet
-    'Fiware-ServicePath': '/'      
+
+const ORION_HEADERS = {
+    'Fiware-Service': 'smart',
+    'Fiware-ServicePath': '/'
 };
 
-// Esta função busca dados históricos no STH Comet e usa Polling
-export function useFiwareData(limit = 50) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // 🚨 URL precisa ser precisa para buscar o histórico da Entidade no STH Comet
-    const fetchUrl = `${FIWARE_STH_BASE}/type/${ENTITY_TYPE}/id/${ENTITY_ID}/attributes?lastN=${limit}`;
-    
-    async function fetchData() {
-      try {
-        if (!data) setLoading(true);
+const POLLING_INTERVAL_MS = 2000; 
 
-        // Faz a requisição para o STH Comet (porta 8666)
-        const response = await axios.get(fetchUrl, { headers: STH_HEADERS });
-        
-        const attributes = response.data.attributes;
+const HISTORY_POLLING_INTERVAL_MS = 10000; 
 
-        if (!attributes || attributes.length === 0) {
-            setData([]);
-            return;
+const MAX_HISTORY_POINTS = 50; 
+
+
+
+export function useHeartRateRealTime() { 
+    const [heartRate, setHeartRate] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchUrl = `http://${FIWARE_IP}:1026/v2/entities/${ENTITY_ID}?attrs=${ATTRIBUTE_NAME}&options=keyValues`; 
+
+        async function fetchData() {
+            try {
+                const response = await axios.get(fetchUrl, { headers: ORION_HEADERS });
+                const latestValue = response.data[ATTRIBUTE_NAME];
+
+                setHeartRate(latestValue || 0); 
+                setError(null);
+                setLoading(false);
+            } catch (err) {
+                let errorMessage = `Erro de conexão com Orion (${err.response?.status || 'Rede'}).`;
+                setError(errorMessage);
+                setHeartRate(null);
+                setLoading(false);
+                console.error("Orion Fetch Error:", err);
+            }
         }
+
+        fetchData();
+        const intervalId = setInterval(fetchData, POLLING_INTERVAL_MS);
         
-        // --- LÓGICA DE MAPEAMENTO STH COMET (Processa a Série Temporal) ---
-        const historicoMap = {};
+        return () => clearInterval(intervalId);
+    }, []); 
 
-        attributes.forEach(attr => {
-            const attrName = attr.attrName;
-            
-            // Itera sobre o array de valores históricos
-            attr.values.forEach(val => {
-                const timestamp = val.recvTime; // Tempo que o dado foi recebido
+    return { heartRate, loading, error };
+}
+
+
+
+export function useHeartRateHistory() { 
+    const [historyData, setHistoryData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const STH_BASE_URL = `http://${FIWARE_IP}:8666/STH/v1/contextEntities`;
+        const fetchUrl = `${STH_BASE_URL}/type/${ENTITY_TYPE}/id/${ENTITY_ID}/attributes/${ATTRIBUTE_NAME}?lastN=${MAX_HISTORY_POINTS}`;
+
+        async function fetchHistory() {
+            try {
+                const response = await axios.get(fetchUrl, { headers: ORION_HEADERS });
                 
-                if (!historicoMap[timestamp]) {
-                    historicoMap[timestamp] = { 
-                        timestamp: timestamp,
-                        // Formata a hora para o eixo X do gráfico
-                        date: new Date(timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) 
-                    };
+                // Checagem segura e formatação do array
+                const rawData = response.data.contextResponses?.[0]?.contextElement?.attributes?.[0]?.values || [];
+                
+                if (rawData.length === 0) {
+                    setHistoryData([]);
+                    setLoading(false);
+                    return; 
                 }
                 
-                // Mapeia os valores (frequencia ou velocidade)
-                if (attrName === 'frequenciaCardiaca') {
-                    historicoMap[timestamp].frequencia = parseFloat(val.attrValue) || 0;
-                } else if (attrName === 'velocidadeMaxima') {
-                    historicoMap[timestamp].velocidade = parseFloat(val.attrValue) || 0;
-                }
-            });
-        });
+                const formattedData = rawData
+                    .map(item => {
+                        const date = new Date(item.recvTime);
+                        const timeString = date.toLocaleTimeString('pt-BR'); 
 
-        // Converte o mapa para array, garantindo que o gráfico use o formato correto.
-        const formattedData = Object.values(historicoMap)
-            .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp)); // Ordena por tempo
+                        return {
+                            name: timeString,
+                            heartRate: parseFloat(item.attrValue) // Garante que é número
+                        };
+                    })
+                    .reverse(); 
 
-        setData(formattedData);
-        setError(null);
-      } catch (err) {
-        // Se a busca falhar, o erro é no STH/Assinatura
-        setError(`Erro STH. Verifique se o STH/QuantumLeap está ativo e a Assinatura (Subscription).`);
-        console.error("STH Comet Fetch Error:", err);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
-    }
+                setHistoryData(formattedData);
+                setError(null);
+                setLoading(false);
 
-    // Executa a primeira busca e configura o Polling
-    fetchData();
-    const intervalId = setInterval(fetchData, POLLING_INTERVAL_MS);
-    return () => clearInterval(intervalId);
+            } catch (err) {
+                let errorMessage = `ERRO STH: Não foi possível obter histórico. Verifique STH-Comet (Porta 8666).`;
+                setError(errorMessage);
+                setHistoryData([]);
+                setLoading(false);
+                console.error("STH Fetch Error:", err);
+            }
+        }
 
-  }, [limit]);
+        fetchHistory();
+        const intervalId = setInterval(fetchHistory, HISTORY_POLLING_INTERVAL_MS); 
 
-  return { data, loading, error };
+        return () => clearInterval(intervalId); 
+
+    }, []); 
+
+    return { historyData, loading, error };
 }

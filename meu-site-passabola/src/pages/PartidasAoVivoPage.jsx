@@ -51,7 +51,7 @@ const PartidasAoVivoPage = () => {
         ) : partidas.length === 0 ? (
           <p className="text-lg text-gray-600 text-center">Nenhuma partida ao vivo no momento.</p>
         ) : (
-          // GRID DE JOGOS
+        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {partidas.map((partida) => (
               <div

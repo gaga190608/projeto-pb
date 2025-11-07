@@ -1,5 +1,4 @@
 // src/components/TotalVisitorsChart.jsx
-
 import React from "react";
 import {
   AreaChart,
@@ -18,9 +17,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils"; // Garanta que a função cn está disponível
+import { cn } from "@/lib/utils"; 
 
-// Dados Mock (Falsos) para o Gráfico
 const chartData = [
   { month: "Jun 23", desktop: 186, mobile: 80 },
   { month: "Jun 24", desktop: 305, mobile: 200 },
@@ -31,11 +29,11 @@ const chartData = [
   { month: "Jun 29", desktop: 186, mobile: 160 },
 ];
 
-// Configuração do Gráfico (Labels e Cores)
+
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "hsl(var(--chart-1))", // Usa as variáveis CSS do Shadcn
+    color: "hsl(var(--chart-1))", 
   },
   mobile: {
     label: "Mobile",
@@ -43,13 +41,12 @@ const chartConfig = {
   },
 };
 
-// Componente Principal do Gráfico
+
 export function TotalVisitorsChart({ data, className }) {
-  // Se você passar 'data' (do Fiware), ele será usado. Caso contrário, usa os dados mock.
+  
   const chartDataSet = data || chartData; 
   
-  // Instalação do componente de Chart deve ser feita se usar o 'chart-container'
-  // Para simplificar, estamos usando o ResponsiveContainer direto do Recharts
+ 
 
   return (
     <Card className={cn(className)}>
@@ -79,11 +76,11 @@ export function TotalVisitorsChart({ data, className }) {
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
-                  data={chartDataSet} // Usando os dados passados ou os mock
+                  data={chartDataSet} 
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >
                   <defs>
-                    {/* Definições de Gradiente para a área preenchida */}
+                    
                     <linearGradient id="colorDesktop" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
@@ -97,7 +94,7 @@ export function TotalVisitorsChart({ data, className }) {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                   
                   <XAxis 
-                    dataKey="month" // Adapte esta chave para seus dados (ex: 'timestamp_formatado')
+                    dataKey="month" 
                     stroke="hsl(var(--foreground))"
                     fontSize={12}
                     tickLine={false}
@@ -120,17 +117,17 @@ export function TotalVisitorsChart({ data, className }) {
                     labelStyle={{ color: "hsl(var(--foreground))" }}
                   />
                   
-                  {/* Linhas e Áreas do Gráfico (Desktop/Mobile) */}
+                 
                   <Area
                     type="monotone"
-                    dataKey="desktop" // Adapte esta chave para seus dados (ex: 'frequencia_cardiaca')
+                    dataKey="desktop" 
                     stroke="hsl(var(--chart-1))"
                     fillOpacity={1}
                     fill="url(#colorDesktop)"
                   />
                   <Area
                     type="monotone"
-                    dataKey="mobile" // Adapte esta chave para seus dados (ex: 'consumo_oxigenio')
+                    dataKey="mobile" 
                     stroke="hsl(var(--chart-2))"
                     fillOpacity={1}
                     fill="url(#colorMobile)"

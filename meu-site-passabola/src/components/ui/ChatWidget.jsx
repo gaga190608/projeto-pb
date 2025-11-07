@@ -23,7 +23,7 @@ export default function ChatWidget({ apiBase = "/py" }) {
     setLoading(true);
 
     try {
-      // Faz GET para /chat?q=<mensagem>
+    
       const url = `${apiBase}/chat?q=${encodeURIComponent(text)}`;
       const resp = await fetch(url);
       const data = await resp.json(); // { text, intent, data, ... }
@@ -44,7 +44,7 @@ export default function ChatWidget({ apiBase = "/py" }) {
 
   return (
     <>
-      {/* Botão flutuante do chat */}
+      
       <button
         onClick={() => setOpen((o) => !o)}
         className="fixed bottom-5 right-5 z-50 rounded-full px-4 py-3 shadow-lg bg-[#523E6C] text-white hover:opacity-95"
@@ -52,7 +52,7 @@ export default function ChatWidget({ apiBase = "/py" }) {
         {open ? "Fechar chat" : "Chat"}
       </button>
 
-      {/* Caixa do chat */}
+      
       {open && (
         <div className="fixed bottom-20 right-5 z-50 w-[92vw] max-w-sm rounded-2xl bg-white shadow-2xl border border-gray-200 overflow-hidden">
           <div className="px-4 py-3 bg-[#523E6C] text-white text-sm font-semibold">
@@ -80,7 +80,7 @@ export default function ChatWidget({ apiBase = "/py" }) {
             )}
           </div>
 
-          {/* Input */}
+          
           <form onSubmit={sendMessage} className="p-3 border-t flex gap-2">
             <input
               value={input}

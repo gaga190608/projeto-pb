@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { it, expect, vi, describe } from 'vitest';
 
-// Componente de página
+
 import LoginPage from '@/pages/LoginPage.jsx'; 
-// Importamos o serviço para que possamos simular APENAS ele
+
 import { authService } from '@/services/authService'; 
 
 
-// Solução para o Hoisting: Simula apenas o módulo de serviço.
+
 vi.mock('@/services/authService', () => ({
     authService: {
         login: vi.fn(),

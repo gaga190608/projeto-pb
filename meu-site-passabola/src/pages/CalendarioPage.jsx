@@ -5,9 +5,9 @@ const CalendarioPage = () => (
   <div className="w-full max-w-5xl px-4 py-8 mx-auto">
     <h1 className="text-3xl font-bold text-[#523E6C] mb-8">CALENDÁRIO</h1>
 
-    {/* GRID DE PARTIDAS */}
+   
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {/* Card 1 */}
+     
       <div className="rounded-2xl bg-white p-6 shadow-md border border-gray-200 transform transition-transform duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl">
         <div className="flex flex-col items-center">
           <div className="flex items-center space-x-6">

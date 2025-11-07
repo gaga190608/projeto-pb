@@ -3,8 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { it, expect, vi, describe } from 'vitest';
 import LoginPage from '@/pages/LoginPage.jsx';
 
-// ✅ CORREÇÃO: Todas as mocks são definidas DENTRO dos vi.mock()
-// Isso evita o erro “Cannot access before initialization”
+
 
 vi.mock('@/services/FirebaseConfig.js', () => ({
   auth: {},
@@ -26,13 +25,10 @@ vi.mock('firebase/firestore', () => {
   };
 });
 
-// 🔁 Importa as funções mockadas para poder inspecionar chamadas
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-// ==========================================================
-// 🚀 Testes
-// ==========================================================
+
 describe('LoginPage: Testes de Login e Cadastro (Pontos 1 & 2)', () => {
   it('Cenário: Login bem-sucedido', async () => {
     const TEST_EMAIL = 'test@passabola.com';
@@ -78,7 +74,7 @@ describe('LoginPage: Testes de Login e Cadastro (Pontos 1 & 2)', () => {
     fireEvent.change(screen.getByPlaceholderText(/Senha/i), { target: { value: 'securepass' } });
     fireEvent.click(screen.getByText(/Cadastrar/i));
 
-    // Espera o setDoc ser chamado corretamente
+    
     await waitFor(() => expect(setDoc).toHaveBeenCalled());
 
     expect(setDoc).toHaveBeenCalledWith(

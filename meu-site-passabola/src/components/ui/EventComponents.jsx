@@ -58,8 +58,8 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
         className="relative w-full max-w-2xl rounded-2xl bg-white p-6 md:p-8 shadow-2xl"
         role="dialog" aria-modal="true"
       >
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800" aria-label="Fechar">✕</button>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <button onClick={onClose} className="absolute top-3 right-3 text-black hover:text-black" aria-label="Fechar">✕</button>
+        <h3 className="text-2xl font-bold text-black mb-4">
           {initial ? 'Editar evento' : 'Criar evento'}
         </h3>
 
@@ -70,7 +70,7 @@ export function EventFormModal({ open, onClose, onSave, initial = null }) {
               value={values.title}
               onChange={(e) => setValues(v => ({ ...v, title: e.target.value }))}
               className={`mt-1 w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#523E6C] text-black ${errors.title ? 'border-red-400' : 'border-gray-200'}`}
-              placeholder="Workshop de React, Meetup de WebDev…"
+              placeholder="Eventos…"
             />
             {errors.title && <p className="text-xs text-red-500 mt-1">{errors.title}</p>}
           </div>
@@ -162,7 +162,7 @@ export function EventCard({ event, onEdit, onDelete }) {
               Ver link
             </a>
           )}
-          <button onClick={() => onEdit?.(event)} className="text-sm px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200">
+          <button onClick={() => onEdit?.(event)} className="text-black px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200">
             Editar
           </button>
           <button onClick={() => onDelete?.(event)} className="text-sm px-3 py-1 rounded-md bg-red-100 text-red-700 hover:bg-red-200">

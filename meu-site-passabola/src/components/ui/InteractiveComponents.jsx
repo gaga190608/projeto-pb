@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// Hook: Fecha quando clica fora
+
 export function useOnClickOutside(ref, handler) {
   useEffect(() => {
     const listener = (event) => {
