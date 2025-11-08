@@ -10,6 +10,10 @@ const __dirname = dirname(__filename);
 
 const setupFilePath = path.join(__dirname, 'src/test-config/setupTests.js');
 
+
+const FIWARE_IP = '20.150.218.100'; 
+
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -23,13 +27,29 @@ export default defineConfig({
     setupFiles: [setupFilePath],
   },
 
-  // ⬇️ ADICIONE ISSO AQUI ⬇️
   server: {
     proxy: {
+      
       "/py": {
-        target: "http://localhost:5000", // onde o app.py está rodando
+        target: "http://localhost:5000", 
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/py/, ""), // remove /py antes de mandar p/ Python
+        rewrite: (p) => p.replace(/^\/py/, ""), 
+      },
+      
+      
+      "/api/sth": {
+        target: `http://${FIWARE_IP}:8666`,
+        changeOrigin: true,
+        secure: false, 
+        rewrite: (p) => p.replace(/^\/api\/sth/, ""), 
+      },
+
+      
+      "/api/orion": {
+        target: `http://${FIWARE_IP}:1026`,
+        changeOrigin: true,
+        secure: false,
+        rewrite: (p) => p.replace(/^\/api\/orion/, ""), 
       },
     },
   },
